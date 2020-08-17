@@ -68,3 +68,6 @@ At some point this will be covered, I need to know how it is done so this will b
 
 ## Screen Shots below
 
+<img src="Screenshot_Main_Screen.png" alt="drawing" width="200"/>
+<img src="Screenshot_Data_Entry.png" alt="drawing" width="200"/>
+

@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
               child: Column(
-                children: EntryList.getList().map((e) {
+                children: EntryList.cloneList().map((e) {
                   return Container(
                     color: entryBackgroundColor(e),
                     child:Row(mainAxisAlignment: MainAxisAlignment.start, children: [

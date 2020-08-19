@@ -43,7 +43,7 @@ class EntryWithId extends Comparable {
   }
 
   String dateString() {
-    return "${monthFormat.format(_dateTime)} ${pad(_dateTime.day)}  ${_dateTime.year}";
+    return "${monthFormat.format(_dateTime)} ${pad(_dateTime.day)} ${_dateTime.year}";
   }
 
   String timeString() {
@@ -140,7 +140,7 @@ class EntryList {
     _list.insert(0, value);
   }
 
-  static List<EntryWithId> getList() {
+  static List<EntryWithId> cloneList() {
     _list.sort();
     List<EntryWithId> tmp = [];
     for (var ent in _list) {
@@ -255,4 +255,5 @@ class EntryList {
       print(e);
     }
   }
+
 }

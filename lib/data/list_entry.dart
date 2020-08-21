@@ -42,6 +42,10 @@ class EntryWithId extends Comparable {
     return dateString() + " " + timeString();
   }
 
+  String dateTimeShort() {
+    return "${monthFormat.format(_dateTime)} ${pad(_dateTime.day)} ${pad(_dateTime.hour)}:${pad(_dateTime.minute)}";
+  }
+
   String dateString() {
     return "${monthFormat.format(_dateTime)} ${pad(_dateTime.day)} ${_dateTime.year}";
   }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'dart:math' as math;
 import 'package:bp_app/data/list_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -5,8 +7,6 @@ import 'package:flutter/rendering.dart';
 import '../styles.dart';
 
 class BpGraph extends StatelessWidget {
-  BpGraph() {}
-
   @override
   Widget build(BuildContext context) {
     double canvasWidth = deriveWidth(context);
@@ -21,9 +21,9 @@ class BpGraph extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: CustomPaint(
-          painter: GraphPainter.build(canvasWidth,MediaQuery.of(context).size.height),
+          painter: GraphPainter.build(canvasWidth, MediaQuery.of(context).size.height),
           child: Container(
-            width:(canvasWidth),
+            width: (canvasWidth),
             height: (MediaQuery.of(context).size.height),
           ),
         ),
@@ -50,12 +50,16 @@ class GraphPainter extends CustomPainter {
   final double yScale;
   final double xBase;
   final double yBase;
+  final textStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 20,
+  );
 
   GraphPainter(this.list, this.youngest, this.oldest, this.span, this.xScale, this.yScale, this.xBase, this.yBase);
 
   static GraphPainter build(double width, double height) {
     List<BPEntry> list = [];
-    for (EntryWithId id in  EntryList.cloneList()) {
+    for (EntryWithId id in EntryList.cloneList()) {
       if (id is BPEntry) {
         list.add(id);
       }
@@ -66,11 +70,15 @@ class GraphPainter extends CustomPainter {
     BPEntry youngest = list[0];
     BPEntry oldest = list[list.length - 1];
     double span = (youngest.getId() - oldest.getId()).toDouble().abs();
-    double xScale = (width-20) / span;
+    double xScale = (width - 20) / span;
     double yScale = height / 250;
     print("size:${list.length} youngest:${youngest.getId()} oldest:${oldest.getId()} height:${height} span:$span yScale:${yScale} ");
-    return GraphPainter(list, youngest, oldest, span, xScale, yScale, youngest.getId().toDouble(), height - (height / 4));
+    return GraphPainter(list, youngest, oldest, span, xScale, yScale, youngest.getId().toDouble(), height - (height / 3));
   }
+
+  static const double r90 = 90 * math.pi / 180;
+  static const double r270 = 270 * math.pi / 180;
+  static const double r180 = 10 * math.pi / 180;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -81,7 +89,12 @@ class GraphPainter extends CustomPainter {
     canvas.drawRect(rect, paint);
 
     paint.color = Colors.black;
-    canvas.drawLine(Offset(0,yBase), Offset(size.width, yBase), paint);
+    canvas.drawLine(Offset(0, yBase), Offset(size.width, yBase), paint);
+    double ypPrev = 0;
+    double ysPrev = 0;
+    double ydPrev = 0;
+    double xDistPrev = 0;
+
 
     paint.strokeWidth = 3;
     for (int x = 0; x < list.length; x++) {
@@ -90,12 +103,44 @@ class GraphPainter extends CustomPainter {
       double ys = list[x].systolic.toDouble() * yScale;
       double yd = list[x].diastolic.toDouble() * yScale;
       paint.color = Colors.black;
-      canvas.drawLine(Offset(xDist,yBase), Offset(xDist, yBase-yp), paint);
+      canvas.drawLine(Offset(xDistPrev, yBase - ypPrev), Offset(xDist, yBase - yp), paint);
       paint.color = Colors.red;
-      canvas.drawLine(Offset(xDist+5,yBase), Offset(xDist+5, yBase-ys), paint);
+      canvas.drawLine(Offset(xDistPrev, yBase - ysPrev), Offset(xDist, yBase - ys), paint);
       paint.color = Colors.blue;
-      canvas.drawLine(Offset(xDist+10,yBase), Offset(xDist+10, yBase-yd), paint);
+      canvas.drawLine(Offset(xDistPrev, yBase - ydPrev), Offset(xDist, yBase - yd), paint);
+      xDistPrev = xDist;
+      ypPrev = yp;
+      ysPrev = ys;
+      ydPrev = yd;
+
     }
+
+
+
+    canvas.translate(0, size.height-10);
+    canvas.rotate(-r90);
+    for (int x = 0; x < list.length; x++) {
+      double xDist = (xBase - (list[x].getId())) * xScale;
+      tp(list[x].dateTimeShort(), size).paint(canvas, Offset(0, xDist));
+    }
+    canvas.rotate(r90);
+    canvas.translate(0, -yBase);
+  }
+
+  TextPainter tp(String text, Size size) {
+    final textSpan = TextSpan(
+      text: text,
+      style: textStyle,
+    );
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    return textPainter;
   }
 
   @override

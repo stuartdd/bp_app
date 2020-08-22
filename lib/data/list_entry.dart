@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -103,6 +104,14 @@ class BPEntry extends EntryWithId {
     return v.toString();
   }
 
+  int min() {
+    return math.min(math.min(systolic, diastolic), pulse);
+  }
+
+  int max() {
+    return math.max(math.max(systolic, diastolic), pulse);
+  }
+
   String values() {
     return " ${padded(systolic)}/${padded(diastolic)}|${padded(pulse)}";
   }
@@ -116,7 +125,6 @@ class BPEntry extends EntryWithId {
 class EntryList {
   static Map _settings = {};
   static List<EntryWithId> _list = [];
-  static bool _dontHide = false;
 
   static String getName() {
     if (_settings[SET_NAME] == null) {
@@ -150,6 +158,20 @@ class EntryList {
     for (var ent in _list) {
       if (!ent.hidden || getDontHide()) {
         tmp.add(ent);
+      }
+    }
+    return tmp;
+  }
+
+  static List<EntryWithId> cloneListAMPM(bool pm, int maxCount) {
+    _list.sort();
+    List<EntryWithId> tmp = [];
+    for (var ent in _list) {
+      if ((!ent.hidden || getDontHide()) && (ent.isPM() == pm)) {
+        tmp.add(ent);
+        if (tmp.length >= maxCount) {
+          break;
+        }
       }
     }
     return tmp;

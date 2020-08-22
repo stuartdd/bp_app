@@ -6,6 +6,7 @@ import '../styles.dart';
 
 class SettingsPage extends StatefulWidget {
   String statusText = "";
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -95,15 +96,49 @@ class _SettingsPageState extends State<SettingsPage> {
             BlackDivider(),
             FlatButton(
               child: new Text(
-                "View Graphs",
+                "View Morning Graphs (AM)",
                 style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, "/graph");
+                Navigator.pushNamed(context, "/graphAm");
               },
               color: Colors.lightBlue,
               shape: ButtonShape(),
             ),
+            FlatButton(
+              child: new Text(
+                "View Evening Graphs (PM)",
+                style: InputButtonStyle(20, Colors.black),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, "/graphPm");
+              },
+              color: Colors.lightBlue,
+              shape: ButtonShape(),
+            ),
+            FlatButton(
+              child: new Text(
+                "View Morning Graphs + Pulse (AM)",
+                style: InputButtonStyle(20, Colors.black),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, "/graphAmBp");
+              },
+              color: Colors.lightBlue,
+              shape: ButtonShape(),
+            ),
+            FlatButton(
+              child: new Text(
+                "View Evening Graphs + Pulse (PM)",
+                style: InputButtonStyle(20, Colors.black),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, "/graphPmBp");
+              },
+              color: Colors.lightBlue,
+              shape: ButtonShape(),
+            ),
+            BlackDivider(),
             FlatButton(
               child: new Text(
                 "WRITE DATA TO BACKUP",
@@ -130,7 +165,8 @@ class _SettingsPageState extends State<SettingsPage> {
               shape: ButtonShape(),
             ),
             ClearDivider(),
-            Text(widget.statusText,
+            Text(
+              widget.statusText,
               style: WarnTextStyle(),
             ),
           ],

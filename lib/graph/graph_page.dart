@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../styles.dart';
+import 'graph_tools.dart';
 
 class BpGraph extends StatelessWidget {
   @override
@@ -21,7 +22,7 @@ class BpGraph extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: CustomPaint(
-          painter: GraphPainter.build(canvasWidth, MediaQuery.of(context).size.height),
+          painter: GraphPainter1.buildGraph(canvasWidth, MediaQuery.of(context).size.height),
           child: Container(
             width: (canvasWidth),
             height: (MediaQuery.of(context).size.height),
@@ -32,14 +33,6 @@ class BpGraph extends StatelessWidget {
   }
 }
 
-double deriveWidth(BuildContext context) {
-  double screen = MediaQuery.of(context).size.width;
-  double req = EntryList.cloneList().length.toDouble() * 50.0;
-  if (req > screen) {
-    return req;
-  }
-  return screen;
-}
 
 const pulseColor = Colors.red;
 const sysColor = Colors.green;
@@ -49,7 +42,7 @@ const double r90 = 90 * math.pi / 180;
 const double TXT_SIZE = 19;
 const double xOfs = 15;
 
-class GraphPainter extends CustomPainter {
+class GraphPainter1 extends CustomPainter {
   final List<BPEntry> list;
   final BPEntry youngest;
   final BPEntry oldest;
@@ -60,9 +53,9 @@ class GraphPainter extends CustomPainter {
   final double yBase;
 
 
-  GraphPainter(this.list, this.youngest, this.oldest, this.span, this.xScale, this.yScale, this.xBase, this.yBase);
+  GraphPainter1(this.list, this.youngest, this.oldest, this.span, this.xScale, this.yScale, this.xBase, this.yBase);
 
-  static GraphPainter build(double width, double height) {
+  static GraphPainter1 buildGraph(double width, double height) {
     List<BPEntry> list = [];
     for (EntryWithId id in EntryList.cloneList()) {
       if (id is BPEntry) {
@@ -77,7 +70,7 @@ class GraphPainter extends CustomPainter {
     double span = (youngest.getId() - oldest.getId()).toDouble().abs();
     double xScale = (width - 20) / span;
     double yScale = height / 300;
-    return GraphPainter(list, youngest, oldest, span, xScale, yScale, youngest.getId().toDouble(), height - (height / 3));
+    return GraphPainter1(list, youngest, oldest, span, xScale, yScale, youngest.getId().toDouble(), height - (height / 3));
   }
 
 
@@ -120,8 +113,8 @@ class GraphPainter extends CustomPainter {
 
       if ((x % 8) == 0) {
         tp("Pulse", size, pulseColor).paint(canvas, Offset(xDist+10, yBase-TXT_SIZE*1.4));
-        tp("Systolic", size, sysColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*2.4)));
-        tp("Diastolic", size, diaColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*3.4)));
+        tp("Diastolic", size, diaColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*2.4)));
+        tp("Systolic", size, sysColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*3.4)));
       }
 
       xDistPrev = xDist;
@@ -140,24 +133,6 @@ class GraphPainter extends CustomPainter {
     canvas.translate(0, -yBase);
   }
 
-  TextPainter tp(String text, Size size, Color c) {
-    final textSpan = TextSpan(
-      text: text,
-      style: TextStyle(
-        color: c,
-        fontSize: TXT_SIZE,
-      ),
-    );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    return textPainter;
-  }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {

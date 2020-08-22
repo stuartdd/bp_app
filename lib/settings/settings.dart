@@ -96,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
             FlatButton(
               child: new Text(
                 "View Graphs",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
                 Navigator.pushNamed(context, "/graph");
@@ -107,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
             FlatButton(
               child: new Text(
                 "WRITE DATA TO BACKUP",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
                 setState(() {
@@ -121,7 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
             FlatButton(
               child: new Text(
                 "MAINTENANCE",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
                 Navigator.pushNamed(context, "/maintenance");

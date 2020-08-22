@@ -37,7 +37,7 @@ class _InputPageState extends State<InputPage> {
     return FlatButton(
       child: new Text(
         val.toString(),
-        style: ButtonStyle(numberSize, numberColour),
+        style: InputButtonStyle(numberSize, numberColour),
       ),
       onPressed: () {
         setState(() {
@@ -74,7 +74,7 @@ class _InputPageState extends State<InputPage> {
     return FlatButton(
       child: new Text(
         widget.value.readings[index].toString(),
-        style: ButtonStyle(valueSize, fg),
+        style: InputButtonStyle(valueSize, fg),
       ),
       onPressed: () {
         setState(() {
@@ -183,7 +183,7 @@ class _InputPageState extends State<InputPage> {
               FlatButton(
                 child: new Text(
                   "CANCEL",
-                  style: ButtonStyle(okButtonSize, Colors.black),
+                  style: InputButtonStyle(okButtonSize, Colors.black),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -194,7 +194,7 @@ class _InputPageState extends State<InputPage> {
               FlatButton(
                 child: new Text(
                   "OK",
-                  style: ButtonStyle(okButtonSize, doneButtonColour),
+                  style: InputButtonStyle(okButtonSize, doneButtonColour),
                 ),
                 onPressed: () {
                   if (doneButtonEnabled) {

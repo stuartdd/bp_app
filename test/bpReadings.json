@@ -2,6 +2,90 @@
   "name": "Julie",
   "bpReadings": [
     {
+      "id": 1598080902788,
+      "hide": false,
+      "sys": 150,
+      "dia": 82,
+      "pulse": 67
+    },
+    {
+      "id": 1598046108436,
+      "hide": false,
+      "sys": 141,
+      "dia": 91,
+      "pulse": 64
+    },
+    {
+      "id": 1597999784699,
+      "hide": false,
+      "sys": 154,
+      "dia": 82,
+      "pulse": 72
+    },
+    {
+      "id": 1597955159428,
+      "hide": false,
+      "sys": 145,
+      "dia": 91,
+      "pulse": 68
+    },
+    {
+      "id": 1597941000000,
+      "hide": false,
+      "sys": 148,
+      "dia": 87,
+      "pulse": 71
+    },
+    {
+      "id": 1597935000000,
+      "hide": false,
+      "sys": 164,
+      "dia": 102,
+      "pulse": 102
+    },
+    {
+      "id": 1597912653768,
+      "hide": false,
+      "sys": 139,
+      "dia": 91,
+      "pulse": 75
+    },
+    {
+      "id": 1597874127114,
+      "hide": false,
+      "sys": 155,
+      "dia": 89,
+      "pulse": 70
+    },
+    {
+      "id": 1597828938215,
+      "hide": false,
+      "sys": 144,
+      "dia": 88,
+      "pulse": 75
+    },
+    {
+      "id": 1597786766921,
+      "hide": false,
+      "sys": 145,
+      "dia": 74,
+      "pulse": 66
+    },
+    {
+      "id": 1597741248471,
+      "hide": false,
+      "sys": 151,
+      "dia": 92,
+      "pulse": 70
+    },
+    {
+      "id": 1597670100000,
+      "hide": false,
+      "sys": 153,
+      "dia": 86,
+      "pulse": 63
+    },
+    {
       "id": 1597654200000,
       "hide": false,
       "sys": 147,

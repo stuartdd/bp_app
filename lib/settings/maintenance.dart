@@ -45,7 +45,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
             FlatButton(
               child: new Text(
                 "COPY DATA TO CLIPBOARD",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () async {
                 String content = await EntryList.copyFileToClipboard(false);
@@ -63,7 +63,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
             FlatButton(
               child: new Text(
                 "COPY BACKUP TO CLIPBOARD",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () async {
                 String content = await EntryList.copyFileToClipboard(true);
@@ -97,7 +97,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
             FlatButton(
               child: new Text(
                 "READ DATA FROM INPUT ABOVE",
-                style: ButtonStyle(20, Colors.black),
+                style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
                 setState(() {

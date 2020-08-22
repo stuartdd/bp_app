@@ -57,8 +57,8 @@ class WarnTextStyle extends TextStyle {
         );
 }
 
-class ButtonStyle extends TextStyle {
-  ButtonStyle(double size, Color c)
+class InputButtonStyle extends TextStyle {
+  InputButtonStyle(double size, Color c)
       : super(
           fontSize: size,
           color: c,

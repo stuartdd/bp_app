@@ -81,7 +81,7 @@ class DetailPage extends StatelessWidget {
               FlatButton(
                 child: new Text(
                   "OK",
-                  style: ButtonStyle(35, Colors.black),
+                  style: InputButtonStyle(35, Colors.black),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -92,7 +92,7 @@ class DetailPage extends StatelessWidget {
               FlatButton(
                 child: new Text(
                   entry.hidden ? "UN-HIDE" : "HIDE",
-                  style: ButtonStyle(35, Colors.black),
+                  style: InputButtonStyle(35, Colors.black),
                 ),
                 onPressed: () {
                   entry.hidden = !entry.hidden;

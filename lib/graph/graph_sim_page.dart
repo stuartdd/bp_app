@@ -177,16 +177,32 @@ class GraphPainter2 extends CustomPainter {
       xDist = xDist + xStep;
     }
 
+    int line = 1;
+    String ampm = pm ? "PM" : "AM";
+    String motAmPm = pm ? "AM" : "PM";
+    if (showPulse) {
+    tl(canvas, size, "Pulse $ampm", pulseColor, line, 10, true);
+    tl(canvas, size, "Pulse $motAmPm", pulseColor, line, size.width / 2, false);
+    line++;
+    }
+    tl(canvas, size, "Systolic $ampm", sysColor, line, 10, true);
+    tl(canvas, size, "Systolic $motAmPm", altSysColor[300], line, size.width / 2, false);
+    line++;
+    tl(canvas, size, "Diastolic $ampm", diaColor, line, 10, true);
+    tl(canvas, size, "Diastolic $motAmPm", altDiaColor[300], line, size.width / 2, false);
+    line++;
+    tl(canvas, size, "${list1.length} ${pm ? "PM" : "AM"} readings.", Colors.black, line, 10, true);
+    if (list2.length > 1) {
+      tl(canvas, size, "${list2.length} ${pm ? "AM" : "PM"} readings.", Colors.black, line, size.width / 2, true);
+    }
+    line++;
     paint.strokeWidth = weight2;
     paint.color = Colors.black;
-    canvas.drawLine(Offset(0, size.height - (TXT_SIZE * 3.2)), Offset(size.width, size.height - (TXT_SIZE * 3.2)), paint);
+    canvas.drawLine(Offset(0, size.height - (TXT_SIZE * line)), Offset(size.width, size.height - (TXT_SIZE * line)), paint);
+  }
 
-    tp("Showing $maxLen ${pm ? "Evening" : "Morning"} readings.", size, Colors.black).paint(canvas, Offset(xBase + 10, size.height - (TXT_SIZE * 3)));
-    tp("Systolic", size, sysColor).paint(canvas, Offset(xBase + 10, size.height - (TXT_SIZE * 2)));
-    tp("Diastolic", size, diaColor).paint(canvas, Offset(xBase + ((size.width / 4) * 1), size.height - (TXT_SIZE * 2)));
-    if (showPulse) {
-      tp("Pulse", size, pulseColor).paint(canvas, Offset(xBase + ((size.width / 4) * 2), size.height - (TXT_SIZE * 2)));
-    }
+  tl(Canvas canvas, Size size, String text, Color c, int line, double x, bool bold) {
+    tp(text, size, bold, c).paint(canvas, Offset(x, (size.height - 15) - (TXT_SIZE * line)));
   }
 
   @override

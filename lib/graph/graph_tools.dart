@@ -12,12 +12,13 @@ double deriveWidth(BuildContext context) {
 }
 
 const double TXT_SIZE = 19;
-TextPainter tp(String text, Size size, Color c) {
+TextPainter tp(String text, Size size, bool bold, Color c) {
   final textSpan = TextSpan(
     text: text,
     style: TextStyle(
       color: c,
       fontSize: TXT_SIZE,
+      fontWeight: bold?FontWeight.bold:FontWeight.normal,
     ),
   );
   final textPainter = TextPainter(

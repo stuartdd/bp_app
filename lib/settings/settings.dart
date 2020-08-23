@@ -96,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
             BlackDivider(),
             FlatButton(
               child: new Text(
-                "View Morning Graph (AM)",
+                "Morning Graph (AM)",
                 style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {

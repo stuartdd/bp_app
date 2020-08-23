@@ -33,7 +33,6 @@ class BpGraph extends StatelessWidget {
   }
 }
 
-
 const pulseColor = Colors.red;
 const sysColor = Colors.green;
 const diaColor = Colors.blue;
@@ -51,7 +50,6 @@ class GraphPainter1 extends CustomPainter {
   final double yScale;
   final double xBase;
   final double yBase;
-
 
   GraphPainter1(this.list, this.youngest, this.oldest, this.span, this.xScale, this.yScale, this.xBase, this.yBase);
 
@@ -72,7 +70,6 @@ class GraphPainter1 extends CustomPainter {
     double yScale = height / 300;
     return GraphPainter1(list, youngest, oldest, span, xScale, yScale, youngest.getId().toDouble(), height - (height / 3));
   }
-
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -107,14 +104,14 @@ class GraphPainter1 extends CustomPainter {
         paint.color = diaColor;
         canvas.drawLine(Offset(xDistPrev, yBase - ydPrev), Offset(xDist, yBase - yd), paint);
       }
-      tp(list[x].pulse.toString(), size, pulseColor).paint(canvas, Offset(xDist, yBase - yp));
-      tp(list[x].systolic.toString(), size, sysColor).paint(canvas, Offset(xDist, yBase - ys));
-      tp(list[x].diastolic.toString(), size, diaColor).paint(canvas, Offset(xDist, yBase - yd));
+      tp(list[x].pulse.toString(), size, false, pulseColor).paint(canvas, Offset(xDist, yBase - yp));
+      tp(list[x].systolic.toString(), size, false, sysColor).paint(canvas, Offset(xDist, yBase - ys));
+      tp(list[x].diastolic.toString(), size, false, diaColor).paint(canvas, Offset(xDist, yBase - yd));
 
       if ((x % 8) == 0) {
-        tp("Pulse", size, pulseColor).paint(canvas, Offset(xDist+10, yBase-TXT_SIZE*1.4));
-        tp("Diastolic", size, diaColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*2.4)));
-        tp("Systolic", size, sysColor).paint(canvas, Offset(xDist+10, yBase-(TXT_SIZE*3.4)));
+        tp("Pulse", size, false, pulseColor).paint(canvas, Offset(xDist + 10, yBase - TXT_SIZE * 1.4));
+        tp("Diastolic", size, false, diaColor).paint(canvas, Offset(xDist + 10, yBase - (TXT_SIZE * 2.4)));
+        tp("Systolic", size, false, sysColor).paint(canvas, Offset(xDist + 10, yBase - (TXT_SIZE * 3.4)));
       }
 
       xDistPrev = xDist;
@@ -127,12 +124,11 @@ class GraphPainter1 extends CustomPainter {
     canvas.rotate(-r90);
     for (int x = 0; x < list.length; x++) {
       double xDist = (xBase - (list[x].getId())) * xScale;
-      tp(list[x].dateTimeShort(), size, Colors.black).paint(canvas, Offset(0, xDist));
+      tp(list[x].dateTimeShort(), size, false, Colors.black).paint(canvas, Offset(0, xDist));
     }
     canvas.rotate(r90);
     canvas.translate(0, -yBase);
   }
-
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {

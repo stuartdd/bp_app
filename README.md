@@ -16,21 +16,21 @@ It stores the data in a JSON file:
 
 ``` JSON
 {
-  "name": "Julie",
-  "bpReadings": [
+  "name": "Fred",
+  "data": [
     {
-      "id": 1597654200000,
-      "hide": false,
-      "sys": 147,
-      "dia": 89,
-      "pulse": 63
+      "i": 1597654200000,
+      "n": 0,
+      "s": 147,
+      "d": 89,
+      "p": 63
     },
     {
-      "id": 1597613400000,
-      "hide": false,
-      "sys": 178,
-      "dia": 88,
-      "pulse": 67
+      "i": 1597613400000,
+      "h": 1,
+      "s": 178,
+      "d": 88,
+      "p": 67
     }
   ]
 }
@@ -68,6 +68,9 @@ At some point this will be covered, I need to know how it is done so this will b
 
 ## Screen Shots below
 
-<img src="Screenshot_Main_Screen.png" alt="drawing" width="200"/>
+<img src="Screenshot_Main_Main.png" alt="drawing" width="200"/>
+
+<img src="Screenshot_Data_Entry.png" alt="drawing" width="200"/>
+<img src="Screenshot_Data_Entry.png" alt="drawing" width="200"/>
 <img src="Screenshot_Data_Entry.png" alt="drawing" width="200"/>
 

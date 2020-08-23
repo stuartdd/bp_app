@@ -20,7 +20,7 @@ class BpGraphSimple extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Graphs ${pm ? "PM" : "AM"} - ${EntryList.getName()}',
+          ' ${pm ? "Evening" : "Morning"} Graph',
           style: TitleStyle(),
         ),
         centerTitle: true,

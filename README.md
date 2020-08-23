@@ -20,7 +20,7 @@ It stores the data in a JSON file:
   "data": [
     {
       "i": 1597654200000,
-      "n": 0,
+      "h": 0,
       "s": 147,
       "d": 89,
       "p": 63
@@ -36,15 +36,21 @@ It stores the data in a JSON file:
 }
 ```
 
-The id is a timestamp (number of millis since the epoch)
+The 'i' is a timestamp (number of millis since the epoch)
 
-The hide field enables entries to be hidden. There is currently no delete function.
+The 'h' field enables entries to be hidden (1=true 0=false) . There is currently no delete function.
+
+'s' is systolic, 'd' is diastolic and 'p' is pulse.
+
+The sparce naming is a space consideration. When there are lots of readings it makes it hard to copy/paste in the maintenance section.
 
 Things still to do:
 
 ## Graph of the data
 
-Draw a graph of the data points based on time so you can see trends in you data.
+There are currently 5 graphs but only one is displayed at the moment.
+
+Should add persistent config settings to hide/show graph options!
 
 ## Better backup
 
@@ -69,7 +75,6 @@ At some point this will be covered, I need to know how it is done so this will b
 ## Screen Shots below
 
 <img src="Screenshot_Main.png" alt="drawing" width="200"/>
-
 <img src="Screenshot_Data_Entry.png" alt="drawing" width="200"/>
 <img src="Screenshot_Graph.png" alt="drawing" width="200"/>
 <img src="Screenshot_Maint.png" alt="drawing" width="200"/>

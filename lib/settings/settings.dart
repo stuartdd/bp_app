@@ -96,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
             BlackDivider(),
             FlatButton(
               child: new Text(
-                "View Morning Graphs (AM)",
+                "View Morning Graph (AM)",
                 style: InputButtonStyle(20, Colors.black),
               ),
               onPressed: () {
@@ -105,39 +105,39 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Colors.lightBlue,
               shape: ButtonShape(),
             ),
-            FlatButton(
-              child: new Text(
-                "View Evening Graphs (PM)",
-                style: InputButtonStyle(20, Colors.black),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, "/graphPm");
-              },
-              color: Colors.lightBlue,
-              shape: ButtonShape(),
-            ),
-            FlatButton(
-              child: new Text(
-                "View Morning Graphs + Pulse (AM)",
-                style: InputButtonStyle(20, Colors.black),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, "/graphAmBp");
-              },
-              color: Colors.lightBlue,
-              shape: ButtonShape(),
-            ),
-            FlatButton(
-              child: new Text(
-                "View Evening Graphs + Pulse (PM)",
-                style: InputButtonStyle(20, Colors.black),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, "/graphPmBp");
-              },
-              color: Colors.lightBlue,
-              shape: ButtonShape(),
-            ),
+//            FlatButton(
+//              child: new Text(
+//                "View Evening Graph (PM)",
+//                style: InputButtonStyle(20, Colors.black),
+//              ),
+//              onPressed: () {
+//                Navigator.pushNamed(context, "/graphPm");
+//              },
+//              color: Colors.lightBlue,
+//              shape: ButtonShape(),
+//            ),
+//            FlatButton(
+//              child: new Text(
+//                "View Morning Graph + Pulse (AM)",
+//                style: InputButtonStyle(20, Colors.black),
+//              ),
+//              onPressed: () {
+//                Navigator.pushNamed(context, "/graphAmBp");
+//              },
+//              color: Colors.lightBlue,
+//              shape: ButtonShape(),
+//            ),
+//            FlatButton(
+//              child: new Text(
+//                "View Evening Graph + Pulse (PM)",
+//                style: InputButtonStyle(20, Colors.black),
+//              ),
+//              onPressed: () {
+//                Navigator.pushNamed(context, "/graphPmBp");
+//              },
+//              color: Colors.lightBlue,
+//              shape: ButtonShape(),
+//            ),
             BlackDivider(),
             FlatButton(
               child: new Text(

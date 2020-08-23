@@ -198,7 +198,7 @@ class _InputPageState extends State<InputPage> {
                 ),
                 onPressed: () {
                   if (doneButtonEnabled) {
-                    EntryList.add(BPEntry(DateTime.now(), widget.value.val(0), widget.value.val(1), widget.value.val(2)));
+                    EntryList.add(BPEntry(DateTime.now(), widget.value.val(0), widget.value.val(1), widget.value.val(2), false));
                     Navigator.pop(context);
                   }
                 },

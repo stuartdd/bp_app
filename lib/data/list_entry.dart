@@ -12,11 +12,21 @@ const HIDDEN = "hide";
 const SYS = "sys";
 const DIA = "dia";
 const PULSE = "pulse";
+
+const J_DATA = "data";
+const J_ID = "i";
+const J_SYS = "s";
+const J_DIA = "d";
+const J_PULSE = "p";
+const J_HIDE = "h";
+
 const UNKNOWN = "unknown";
 const NAME = "name";
-const READINGS = "bpReadings";
+const O_READINGS = "bpReadings";
 const FN_PREF = "bp_log";
 const FN_TYPE = "json";
+
+
 
 const SET_NAME = "name";
 const SET_DONT_HIDE = "dontHide";
@@ -26,7 +36,7 @@ class EntryWithId extends Comparable {
   DateTime _dateTime;
   bool hidden = false;
 
-  EntryWithId(this._dateTime);
+  EntryWithId(this._dateTime, this.hidden);
 
   String pad(int i) {
     if (i < 10) {
@@ -60,7 +70,7 @@ class EntryWithId extends Comparable {
   }
 
   String toJson() {
-    return "\"$ID\": ${getId()}, \"$HIDDEN\": $hidden";
+    return "\"$J_ID\":${getId()},\"$J_HIDE\":${hidden?'1':'0'}";
   }
 
   DateTime getDate() {
@@ -89,7 +99,7 @@ class BPEntry extends EntryWithId {
   final int diastolic;
   final int pulse;
 
-  BPEntry(DateTime dt, this.systolic, this.diastolic, this.pulse) : super(dt);
+  BPEntry(DateTime dt, this.systolic, this.diastolic, this.pulse, bool hidden) : super(dt, hidden);
 
   String padded(int v) {
     if (v < 0) {
@@ -117,7 +127,7 @@ class BPEntry extends EntryWithId {
   }
 
   String toJson() {
-    return '{' + super.toJson() + ", \"$SYS\": " + systolic.toString() + ", \"$DIA\": " + diastolic.toString() + ", \"$PULSE\": " + pulse.toString() + '}';
+    return '{' + super.toJson() + ",\"$J_SYS\":" + systolic.toString() + ",\"$J_DIA\":" + diastolic.toString() + ",\"$J_PULSE\":" + pulse.toString() + '}';
   }
 
 }
@@ -192,14 +202,13 @@ class EntryList {
     for (var eid in _list) {
       s = s + eid.toJson();
       mark = s.length;
-      s = s + ', ';
+      s = s + ',';
     }
-    return '{ \"$NAME\": \"${getName()}\", \"$READINGS\": [' + s.substring(0, mark) + ']}';
+    return '{\"$NAME\":\"${getName()}\",\"$J_DATA\":[' + s.substring(0, mark) + ']}';
   }
 
   static String tryParse(String json) {
     String existing = toJson();
-    print(existing);
     _list.clear();
     try {
       parseJson(json);
@@ -210,6 +219,29 @@ class EntryList {
     }
   }
 
+  static int readInt(Map map, String name) {
+    int val = map[name];
+    return val == -1 ? false : val;
+  }
+
+  static DateTime readId(Map map, String name, int count) {
+    int val = map[name];
+    return val == null ? DateTime.now().add(Duration(minutes: count)) : DateTime.fromMillisecondsSinceEpoch(val);
+  }
+
+  static bool readBool(Map map, String name) {
+    bool val = map[name];
+    return val == null ? false : val;
+  }
+
+  static bool readBoolInt(Map map, String name) {
+    int val = map[name];
+    if (val == null) {
+      return false;
+    }
+    return val == 0 ? false : true;
+  }
+
   static parseJson(String json) {
     Map userMap = jsonDecode(json);
     if (userMap[NAME] == null) {
@@ -217,27 +249,18 @@ class EntryList {
     }
     _settings[SET_NAME] = userMap[NAME];
     int count = 0;
-    for (var input in userMap[READINGS]) {
-      count++;
-      if (input[ID] == null) {
-        input[ID] = DateTime.now().add(Duration(minutes: count)).millisecondsSinceEpoch;
+    if (userMap[O_READINGS] == null) {
+      for (var input in userMap[J_DATA]) {
+        count++;
+        var ent = BPEntry(readId(input, J_ID, count), readInt(input, J_SYS), readInt(input, J_DIA), readInt(input, J_PULSE), readBoolInt(input, J_HIDE));
+        EntryList.add(ent);
       }
-      if (input[SYS] == null) {
-        input[SYS] = -1;
+    } else {
+      for (var input in userMap[O_READINGS]) {
+        count++;
+        var ent = BPEntry(readId(input, ID, count), readInt(input, SYS), readInt(input, DIA), readInt(input, PULSE), readBool(input, HIDDEN));
+        EntryList.add(ent);
       }
-      if (input[DIA] == null) {
-        input[DIA] = -1;
-      }
-      if (input[PULSE] == null) {
-        input[PULSE] = -1;
-      }
-      var ent = BPEntry(DateTime.fromMillisecondsSinceEpoch(input[ID]), input[SYS], input[DIA], input[PULSE]);
-      if (input[HIDDEN] == null) {
-        ent.hidden = false;
-      } else {
-        ent.hidden = input[HIDDEN];
-      }
-      EntryList.add(ent);
     }
   }
 

@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../styles.dart';
 
 class SettingsPage extends StatefulWidget {
-
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -50,19 +49,26 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text(
-          'Settings',
-          style: const TitleStyle(),
-        ),
-        centerTitle: true,
-      ),
+          title: new Text(
+            'Settings',
+            style: const TitleStyle(),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.build),
+              onPressed: () {
+                Navigator.pushNamed(context, "/maintenance");
+              },
+            ),
+          ]),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             makeCard(
-              "User ID",
+              "Name",
               SizedBox(
                 width: 150,
                 child: TextField(
@@ -84,6 +90,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
+            const Text(
+              "Short name displayed at the top of the main page.",
+              style: InfoTextStyle(),
+            ),
             makeCard(
                 "Show Hidden",
                 Checkbox(
@@ -93,6 +103,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         SettingsData.doNotHide = v;
                       });
                     })),
+            const Text(
+              "Display 'Hidden' entries in the main list.",
+              style: InfoTextStyle(),
+            ),
             const BlackDivider(),
             FlatButton(
               child: new Text(
@@ -106,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
               shape: ButtonShape(),
             ),
             makeCard(
-                "Show Pulse",
+                "Display Pulse",
                 Checkbox(
                     value: SettingsData.showPulseInGraphs,
                     onChanged: (v) {
@@ -114,6 +128,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         SettingsData.showPulseInGraphs = v;
                       });
                     })),
+            const Text(
+              "Display 'Pulse' data on the graph.",
+              style: InfoTextStyle(),
+            ),
             const BlackDivider(),
             FlatButton(
               child: new Text(
@@ -129,21 +147,10 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Colors.lightBlue,
               shape: ButtonShape(),
             ),
-            FlatButton(
-              child: new Text(
-                "MAINTENANCE",
-                style: InputButtonStyle(20, Colors.black),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, "/maintenance");
-              },
-              color: Colors.lightBlue,
-              shape: ButtonShape(),
-            ),
             const ClearDivider(),
             Text(
               statusText,
-              style: const WarnTextStyle(),
+              style: const InfoTextStyle(),
             ),
           ],
         ),

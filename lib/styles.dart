@@ -19,8 +19,8 @@ class HeadingDataStyle extends TextStyle {
         );
 }
 
-class WarnTextStyle extends TextStyle {
-  const WarnTextStyle()
+class InfoTextStyle extends TextStyle {
+  const InfoTextStyle()
       : super(
           fontSize: 15.0,
           color: Colors.black,

@@ -40,7 +40,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
           children: [
             const ClearDivider(),
             Text("Copy the JSON in the Primary data file to the clipboard and the field below.",
-              style: const WarnTextStyle(),
+              style: const InfoTextStyle(),
             ),
             FlatButton(
               child: new Text(
@@ -58,7 +58,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
             ),
             const ClearDivider(),
             Text("Copy the JSON in the BACKUP file to the clipboard and the field below.",
-              style: const WarnTextStyle(),
+              style: const InfoTextStyle(),
             ),
             FlatButton(
               child: new Text(
@@ -78,7 +78,7 @@ class _MaintenancePageState extends State<MaintenancePage> {
             Text("The field below is for data maintenance. "
                 "Paste JSON data in to this field to IMPORT the data readings.\n\n"
                 "Invalid data will be ignored but it is a good idea to save the data to a backup first.",
-              style: const WarnTextStyle(),
+              style: const InfoTextStyle(),
             ),
             TextField(
               maxLines: null,

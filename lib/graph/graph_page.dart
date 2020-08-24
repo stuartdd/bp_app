@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'dart:math' as math;
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -14,8 +14,8 @@ class BpGraph extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'Graphs - ${EntryList.getName()}',
-          style: TitleStyle(),
+          'Graphs - ${SettingsData.userName}',
+          style: const TitleStyle(),
         ),
         centerTitle: true,
       ),
@@ -55,7 +55,7 @@ class GraphPainter1 extends CustomPainter {
 
   static GraphPainter1 buildGraph(double width, double height) {
     List<BPEntry> list = [];
-    for (EntryWithId id in EntryList.cloneList()) {
+    for (EntryWithId id in SettingsData.cloneList()) {
       if (id is BPEntry) {
         list.add(id);
       }

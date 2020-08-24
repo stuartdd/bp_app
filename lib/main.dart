@@ -1,5 +1,5 @@
-import 'package:bp_app/settings/maintenance.dart';
-import 'package:bp_app/settings/settings.dart';
+import 'package:bp_app/settings/maintenance_page.dart';
+import 'package:bp_app/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'graph/graph_sim_page.dart';
 import 'input/detail_page.dart';
@@ -40,10 +40,8 @@ class BPApp extends StatelessWidget {
         "/input": (context) => InputPage(),
         "/detail": (context) => DetailPage(),
         "/settings": (context) => SettingsPage(),
-        "/graphAm": (context) => BpGraphSimple(false, 30, false, true),
-        "/graphPm": (context) => BpGraphSimple(true, 30, false, true),
-        "/graphAmBp": (context) => BpGraphSimple(false, 30, true, true),
-        "/graphPmBp": (context) => BpGraphSimple(true, 30, true, true),
+        "/graphAm": (context) => BpGraphSimple(false, 30, true),
+        "/graphPm": (context) => BpGraphSimple(true, 30, true),
         "/maintenance": (context) => MaintenancePage(),
       },
     );

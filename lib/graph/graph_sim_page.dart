@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
@@ -9,10 +9,9 @@ import 'graph_tools.dart';
 class BpGraphSimple extends StatelessWidget {
   final bool pm;
   final int entryCount;
-  final bool showPulse;
   final bool showAlt;
 
-  BpGraphSimple(this.pm, this.entryCount, this.showPulse, this.showAlt);
+  BpGraphSimple(this.pm, this.entryCount, this.showAlt);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +20,14 @@ class BpGraphSimple extends StatelessWidget {
       appBar: new AppBar(
         title: new Text(
           ' ${pm ? "Evening" : "Morning"} Graph',
-          style: TitleStyle(),
+          style: const TitleStyle(),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: CustomPaint(
-          painter: GraphPainter2.buildGraph(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height, pm, entryCount, showPulse, showAlt),
+          painter: GraphPainter2.buildGraph(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height, pm, entryCount, showAlt),
           child: Container(
             width: (MediaQuery.of(context).size.width),
             height: (MediaQuery.of(context).size.height),
@@ -66,17 +65,16 @@ class GraphPainter2 extends CustomPainter {
   final double xBase;
   final double yBase;
 
-  final bool showPulse;
   final bool showAlt;
 
-  GraphPainter2(this.list1, this.list2, this.maxLen, this.xScale, this.yScale, this.xBase, this.yBase, this.pm, this.showPulse, this.showAlt);
+  GraphPainter2(this.list1, this.list2, this.maxLen, this.xScale, this.yScale, this.xBase, this.yBase, this.pm, this.showAlt);
 
-  static GraphPainter2 buildGraph(double width, double height, bool pm, int entryCount, bool showPulse, bool showAlt) {
+  static GraphPainter2 buildGraph(double width, double height, bool pm, int entryCount, bool showAlt) {
     List<BPEntry> list1 = [];
     List<BPEntry> list2 = [];
     int min = 1000;
     int max = -1000;
-    for (EntryWithId id in EntryList.cloneListAMPM(pm, entryCount)) {
+    for (EntryWithId id in SettingsData.cloneListAMPM(pm, entryCount)) {
       if (id is BPEntry) {
         list1.add(id);
         if (id.max() > max) {
@@ -88,7 +86,7 @@ class GraphPainter2 extends CustomPainter {
       }
     }
     if (showAlt) {
-      for (EntryWithId id in EntryList.cloneListAMPM(!pm, list1.length)) {
+      for (EntryWithId id in SettingsData.cloneListAMPM(!pm, list1.length)) {
         if (id is BPEntry) {
           list2.add(id);
           if (id.max() > max) {
@@ -101,7 +99,7 @@ class GraphPainter2 extends CustomPainter {
       }
     }
     int len = math.max(list1.length, list2.length);
-    min = min - 38;
+    min = min - 50;
     max = max + 6;
     if (len < 2) {
       return null;
@@ -109,7 +107,7 @@ class GraphPainter2 extends CustomPainter {
     double diff = max.toDouble() - min.toDouble();
     double xScale = (width - 20) / len;
     double yScale = height / diff;
-    return GraphPainter2(list1, list2, len, xScale, yScale, X_OFS, height + (min * yScale), pm, showPulse, showAlt);
+    return GraphPainter2(list1, list2, len, xScale, yScale, X_OFS, height + (min * yScale), pm, showAlt);
   }
 
   @override
@@ -132,7 +130,7 @@ class GraphPainter2 extends CustomPainter {
         double ys = list2[x].systolic.toDouble() * yScale;
         double yd = list2[x].diastolic.toDouble() * yScale;
         if (x > 0) {
-          if (showPulse) {
+          if (SettingsData.showPulseInGraphs) {
             paint.color = altPulseColor;
             canvas.drawLine(Offset(xDistPrev, yBase - ypPrev), Offset(xDist, yBase - yp), paint);
           }
@@ -160,7 +158,7 @@ class GraphPainter2 extends CustomPainter {
       double ys = list1[x].systolic.toDouble() * yScale;
       double yd = list1[x].diastolic.toDouble() * yScale;
       if (x > 0) {
-        if (showPulse) {
+        if (SettingsData.showPulseInGraphs) {
           paint.color = pulseColor;
           canvas.drawLine(Offset(xDistPrev, yBase - ypPrev), Offset(xDist, yBase - yp), paint);
         }
@@ -180,10 +178,10 @@ class GraphPainter2 extends CustomPainter {
     int line = 1;
     String ampm = pm ? "PM" : "AM";
     String motAmPm = pm ? "AM" : "PM";
-    if (showPulse) {
-    tl(canvas, size, "Pulse $ampm", pulseColor, line, 10, true);
-    tl(canvas, size, "Pulse $motAmPm", pulseColor, line, size.width / 2, false);
-    line++;
+    if (SettingsData.showPulseInGraphs) {
+      tl(canvas, size, "Pulse $ampm", pulseColor, line, 10, true);
+      tl(canvas, size, "Pulse $motAmPm", pulseColor, line, size.width / 2, false);
+      line++;
     }
     tl(canvas, size, "Systolic $ampm", sysColor, line, 10, true);
     tl(canvas, size, "Systolic $motAmPm", altSysColor[300], line, size.width / 2, false);

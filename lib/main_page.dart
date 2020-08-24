@@ -1,4 +1,4 @@
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:bp_app/input/detail_page.dart';
 import 'package:bp_app/styles.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +53,8 @@ class _MainPageState extends State<MainPage> with RouteAware {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'BP Log - ${EntryList.getName()}',
-          style: TitleStyle(),
+          'BP Log - ${SettingsData.userName}',
+          style: const TitleStyle(),
         ),
         centerTitle: true,
         actions: [
@@ -75,13 +75,13 @@ class _MainPageState extends State<MainPage> with RouteAware {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
               child: Column(
-                children: EntryList.cloneList().map((e) {
+                children: SettingsData.cloneList().map((e) {
                   return Container(
                     color: entryBackgroundColor(e),
                     child:Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       GestureDetector(
                         onTap: () {
-                          DetailPage.entry = EntryList.getEntry((e).getId());
+                          DetailPage.entry = SettingsData.getEntry((e).getId());
                           Navigator.pushNamed(context, "/detail");
                         },
                         child: Text(
@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
                       ),
                       GestureDetector(
                         onTap: () {
-                          DetailPage.entry = EntryList.getEntry((e).getId());
+                          DetailPage.entry = SettingsData.getEntry((e).getId());
                           Navigator.pushNamed(context, "/detail");
                         },
                         child: Text(
@@ -121,7 +121,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    EntryList.load(false);
+    SettingsData.load(false);
     Future.delayed(Duration(seconds: 1), () {
       setState(() {});
     });
@@ -141,7 +141,7 @@ class _MainPageState extends State<MainPage> with RouteAware {
 
   @override
   void didPopNext() {
-    EntryList.save(false);
+    SettingsData.save(false);
 
     setState(() {});
   }

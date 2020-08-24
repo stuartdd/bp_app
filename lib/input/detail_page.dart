@@ -1,4 +1,4 @@
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../styles.dart';
@@ -49,7 +49,7 @@ class DetailPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text(
           'Entry Details',
-          style: TitleStyle(),
+          style: const TitleStyle(),
         ),
         centerTitle: true,
       ),
@@ -81,7 +81,7 @@ class DetailPage extends StatelessWidget {
               FlatButton(
                 child: new Text(
                   "OK",
-                  style: InputButtonStyle(35, Colors.black),
+                  style: const InputButtonStyle(35, Colors.black),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -92,7 +92,7 @@ class DetailPage extends StatelessWidget {
               FlatButton(
                 child: new Text(
                   entry.hidden ? "UN-HIDE" : "HIDE",
-                  style: InputButtonStyle(35, Colors.black),
+                  style: const InputButtonStyle(35, Colors.black),
                 ),
                 onPressed: () {
                   entry.hidden = !entry.hidden;

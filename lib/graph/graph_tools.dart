@@ -1,10 +1,10 @@
 
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:flutter/material.dart';
 
 double deriveWidth(BuildContext context) {
   double screen = MediaQuery.of(context).size.width;
-  double req = EntryList.cloneList().length.toDouble() * 50.0;
+  double req = SettingsData.cloneList().length.toDouble() * 50.0;
   if (req > screen) {
     return req;
   }

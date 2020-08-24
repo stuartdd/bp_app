@@ -1,4 +1,4 @@
-import 'package:bp_app/data/list_entry.dart';
+import 'package:bp_app/data/settings_data.dart';
 import 'package:bp_app/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +12,9 @@ class InputPage extends StatefulWidget {
   _InputPageState createState() => _InputPageState();
 }
 
-class _InputPageState extends State<InputPage> {
-  final double okButtonSize = 45;
+const double okButtonSize = 45;
 
+class _InputPageState extends State<InputPage> {
   final double numberSize = 60.0;
   final double valueSize = 45.0;
   final Color numberColour = Colors.green;
@@ -99,7 +99,7 @@ class _InputPageState extends State<InputPage> {
       appBar: new AppBar(
         title: new Text(
           'Input - ${widget.value.title()}',
-          style: TitleStyle(),
+          style: const TitleStyle(),
         ),
         centerTitle: true,
       ),
@@ -111,10 +111,10 @@ class _InputPageState extends State<InputPage> {
             children: [
               Text(
                 widget.value.readings[0].getTitle(),
-                style: HeadingDataStyle(),
+                style: const HeadingDataStyle(),
               ),
-              Text(widget.value.readings[1].getTitle(), style: HeadingDataStyle()),
-              Text(widget.value.readings[2].getTitle(), style: HeadingDataStyle()),
+              Text(widget.value.readings[1].getTitle(), style: const HeadingDataStyle()),
+              Text(widget.value.readings[2].getTitle(), style: const HeadingDataStyle()),
             ],
           ),
           Row(
@@ -183,7 +183,7 @@ class _InputPageState extends State<InputPage> {
               FlatButton(
                 child: new Text(
                   "CANCEL",
-                  style: InputButtonStyle(okButtonSize, Colors.black),
+                  style: const InputButtonStyle(okButtonSize, Colors.black),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -198,7 +198,7 @@ class _InputPageState extends State<InputPage> {
                 ),
                 onPressed: () {
                   if (doneButtonEnabled) {
-                    EntryList.add(BPEntry(DateTime.now(), widget.value.val(0), widget.value.val(1), widget.value.val(2), false));
+                    SettingsData.add(BPEntry(DateTime.now(), widget.value.val(0), widget.value.val(1), widget.value.val(2), false));
                     Navigator.pop(context);
                   }
                 },

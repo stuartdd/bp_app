@@ -3,27 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TitleStyle extends TextStyle {
-  TitleStyle()
+  const TitleStyle()
       : super(
           fontSize: 30.0,
           color: Colors.black,
         );
 }
 
-class ListDataStyle extends TextStyle {
-  ListDataStyle()
-      : super(
-          fontSize: 25.0,
-          fontWeight: FontWeight.bold,
-          fontFeatures: [
-            FontFeature.proportionalFigures(),
-          ],
-          color: Colors.green,
-        );
-}
-
 class HeadingDataStyle extends TextStyle {
-  HeadingDataStyle()
+  const HeadingDataStyle()
       : super(
           fontSize: 23.0,
           fontWeight: FontWeight.bold,
@@ -31,25 +19,8 @@ class HeadingDataStyle extends TextStyle {
         );
 }
 
-class CardHeadStyle extends TextStyle {
-  CardHeadStyle(Color c)
-      : super(
-          fontWeight: FontWeight.bold,
-          fontSize: 30.0,
-          color: c,
-        );
-}
-
-class CardDescStyle extends TextStyle {
-  CardDescStyle(Color c)
-      : super(
-          fontSize: 15.0,
-          color: c,
-        );
-}
-
 class WarnTextStyle extends TextStyle {
-  WarnTextStyle()
+  const WarnTextStyle()
       : super(
           fontSize: 15.0,
           color: Colors.black,
@@ -58,7 +29,7 @@ class WarnTextStyle extends TextStyle {
 }
 
 class InputButtonStyle extends TextStyle {
-  InputButtonStyle(double size, Color c)
+  const InputButtonStyle(double size, Color c)
       : super(
           fontSize: size,
           color: c,
@@ -67,13 +38,12 @@ class InputButtonStyle extends TextStyle {
 }
 
 final RoundedRectangleBorder _buttonShape = RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0));
-
 RoundedRectangleBorder ButtonShape() {
   return _buttonShape;
 }
 
 class BlackDivider extends Divider {
-  BlackDivider()
+  const BlackDivider()
       : super(
           thickness: 2,
           height: 30,
@@ -82,7 +52,7 @@ class BlackDivider extends Divider {
 }
 
 class ClearDivider extends Divider {
-  ClearDivider()
+  const ClearDivider()
       : super(
           height: 30,
         );

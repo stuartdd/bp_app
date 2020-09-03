@@ -18,7 +18,6 @@ const J_SHOW_PULSE = "showPulse";
 const J_DNH = "doNotHide";
 
 const UNKNOWN = "unknown";
-const O_READINGS = "bpReadings";
 const FN_PREF = "bp_log";
 const FN_TYPE = "json";
 
@@ -235,12 +234,11 @@ class SettingsData {
     }
 
     int count = 0;
-    if (userMap[O_READINGS] == null) {
-      for (var input in userMap[J_DATA]) {
-        count++;
-        var ent = BPEntry(readId(input, J_ID, count), readInt(input, J_SYS), readInt(input, J_DIA), readInt(input, J_PULSE), readBoolInt(input, J_HIDE));
-        SettingsData.add(ent);
-      }
+
+    for (var input in userMap[J_DATA]) {
+      count++;
+      var ent = BPEntry(readId(input, J_ID, count), readInt(input, J_SYS), readInt(input, J_DIA), readInt(input, J_PULSE), readBoolInt(input, J_HIDE));
+      SettingsData.add(ent);
     }
   }
 
